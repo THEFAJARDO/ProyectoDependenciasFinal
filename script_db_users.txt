@@ -1,0 +1,40 @@
+DROP DATABASE IF EXISTS dbdepen;
+
+CREATE DATABASE dbdepen DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+use dbdepen;
+
+DROP TABLE IF EXISTS dependencia;
+CREATE TABLE dependencia (
+codigo INT NOT NULL UNIQUE , 
+nombre VARCHAR(50),
+sigla VARCHAR(10),
+superior INT,
+tipo VARCHAR(50),
+PRIMARY KEY (codigo)
+);
+
+DROP TABLE IF EXISTS proceso;
+CREATE TABLE proceso(
+id INT NOT NULL AUTO_INCREMENT,
+dependencia_id INT NOT NULL,
+num VARCHAR(4) NOT NULL ,
+vigencia INT,
+fecha_inicio DATE,
+fecha_fin DATE,
+tipoproceso VARCHAR(20),
+PRIMARY KEY (id) ,
+FOREIGN KEY (dependencia_id) REFERENCES dependencia(codigo)
+);
+
+DROP TABLE IF EXISTS autoevaluacion;
+CREATE TABLE autoevaluacion(
+id INT NOT NULL AUTO_INCREMENT, 
+dependencia_id INT NOT NULL,
+fecha_inicio DATE,
+fecha_fin    DATE,
+PRIMARY KEY (id) ,
+FOREIGN KEY (dependencia_id) REFERENCES dependencia(codigo)
+);
+
+
